@@ -1,0 +1,46 @@
+.How-It-Works-Section{
+    padding: 80px 60px;
+    background-color: #f8fff5;
+}
+
+.title{
+    text-align: center;
+    font-size: 38px;
+    color: #2E7D32;
+    margin-bottom: 50px;
+    font-weight: bold;
+}
+
+.container{
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    flex-wrap: wrap;
+}
+
+.card{
+    background-color: white;
+    width: 300px;
+    padding: 30px;
+    border-radius: 15px;
+    text-align: center;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    transition: all 0.3s ease;
+}
+
+.card:hover{
+    transform: translateY(-10px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+}
+
+.heading{
+    color: #2E7D32;
+    font-size: 24px;
+    margin-bottom: 15px;
+}
+
+.card p{
+    color: #555;
+    font-size: 16px;
+    line-height: 1.6;
+}

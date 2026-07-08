@@ -1,0 +1,40 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+.navbar{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:18px 50px;
+    background:#2E7D32;
+    color:white;
+}
+
+.logo{
+    font-size:28px;
+    font-weight:bold;
+}
+
+.navbar{
+    display:flex;
+    list-style:none;
+    gap:30px;
+}
+
+.navbar li{
+    cursor:pointer;
+    font-weight:500;
+}
+
+.login-btn{
+    padding:10px 20px;
+    border:none;
+    border-radius:6px;
+    background:white;
+    color:#2E7D32;
+    cursor:pointer;
+    font-weight:bold;
+}
