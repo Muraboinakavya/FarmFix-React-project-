@@ -1,0 +1,147 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial, Helvetica, sans-serif;
+}
+
+.register-page{
+    width:100%;
+    min-height:100vh;
+    background:#121212;
+    color:white;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    padding:50px 20px;
+}
+
+.register-page h2{
+    font-size:38px;
+    color:#8df56f;
+    margin-bottom:15px;
+}
+
+.register-page p{
+    width:80%;
+    text-align:center;
+    color:#d8d8d8;
+    line-height:1.6;
+    margin-bottom:30px;
+}
+
+.register-form{
+    width:700px;
+    background:#1e1e1e;
+    padding:35px;
+    border-radius:15px;
+    box-shadow:0 10px 25px rgba(0,0,0,.5);
+}
+
+.register-form input,
+.register-form select{
+    width:100%;
+    padding:14px;
+    margin-bottom:15px;
+    border:none;
+    outline:none;
+    border-radius:8px;
+    background:#2f2f2f;
+    color:white;
+    font-size:15px;
+}
+
+.register-form input::placeholder{
+    color:#cfcfcf;
+}
+
+.register-form input:focus,
+.register-form select:focus{
+    border:2px solid #74d44c;
+}
+
+.terms-container{
+    display:flex;
+    align-items:flex-start;
+    gap:10px;
+    margin:15px 0;
+}
+
+.terms-container input{
+    width:18px;
+    height:18px;
+    margin-top:4px;
+}
+
+.terms-container label{
+    color:#ddd;
+    line-height:1.5;
+    font-size:15px;
+}
+
+button{
+    padding:13px 30px;
+    border:none;
+    border-radius:8px;
+    cursor:pointer;
+    font-size:16px;
+    font-weight:bold;
+    transition:.3s;
+}
+
+button[type="submit"]{
+    background:#6fd44c;
+    color:white;
+    margin-right:15px;
+}
+
+button[type="submit"]:hover{
+    background:#58b539;
+}
+
+button[type="button"]{
+    background:#555;
+    color:white;
+}
+
+button[type="button"]:hover{
+    background:#333;
+}
+
+.error{
+    color:#ff5f5f;
+    font-size:14px;
+    margin-top:-10px;
+    margin-bottom:12px;
+}
+
+.success{
+    background:#d4edda;
+    color:#155724;
+    padding:15px;
+    border-radius:8px;
+    width:700px;
+    margin-bottom:20px;
+    text-align:center;
+    font-weight:bold;
+}
+
+.user-card{
+    width:700px;
+    margin-top:30px;
+    background:#1e1e1e;
+    padding:25px;
+    border-radius:12px;
+    box-shadow:0 8px 20px rgba(0,0,0,.4);
+}
+
+.user-card h3{
+    color:#8df56f;
+    margin-bottom:20px;
+}
+
+.user-card p{
+    text-align:left;
+    width:100%;
+    margin-bottom:10px;
+}

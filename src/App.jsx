@@ -6,13 +6,16 @@ import HowItworks from "./components/HowItworks/HowItworks";
 import FeatureCard from "./components/FeatureCard/FeatureCard";
 import Contact from "./components/Contact/Contact";
 import Footer from "./components/Footer/Footer";
+import Register from './Pages/Register';
 
 
 function App() {
  
   return (
     <>
+    <div><Register/></div>
     <Navbar/>
+    
     <Hero/>
     <Services/>
     <HowItworks/>
