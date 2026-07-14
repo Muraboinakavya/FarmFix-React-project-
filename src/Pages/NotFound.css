@@ -1,0 +1,45 @@
+.NotFound- page{
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  background: #0f172a;
+  background-image: 
+    radial-gradient(at 20% 80%, #1e293b 0px, transparent 50%),
+    radial-gradient(at 80% 20%, #1e293b 0px, transparent 50%);
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  padding: 1rem;
+}
+
+.error-404 h3 {
+  font-size: clamp(6rem, 25vw, 12rem);
+  font-weight: 900;
+  margin: 0;
+  line-height: 0.9;
+  background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  letter-spacing: -0.08em;
+}
+
+.error-404 p {
+  font-size: 1.25rem;
+  font-weight: 400;
+  color: #94a3b8;
+  margin: 1.5rem 0 0;
+  letter-spacing: 0.025em;
+  text-transform: uppercase;
+}
+
+.error-404::after {
+  content: "The page you're looking for doesn't exist or has been moved.";
+  display: block;
+  font-size: 0.95rem;
+  color: #475569;
+  margin-top: 1rem;
+  max-width: 320px;
+  text-align: center;
+  line-height: 1.5;
+  text-transform: none;
+  letter-spacing: 0;
+}

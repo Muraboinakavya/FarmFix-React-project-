@@ -1,52 +1,83 @@
-import "./Contact.css"
-function Contact(){
-    return(
-        <section className="contact-section">
-            <h1 className="title">Contact Us</h1>
-            <p className="description">Need help with your farm equipment? FarmFix is here to assist you. Contact our team for quick support, connect with verified mechanics, or learn more about our services. We are committed to providing reliable, transparent, and efficient repair solutions for every farmer.</p>
-            <div className="contact-container">
-                <div>
-                    <h2>Contact Form</h2>
-                     
+import "./Contact.css";
+import { FaMapMarkerAlt, FaPhoneAlt, FaEnvelope, FaClock } from "react-icons/fa";
 
-                    <input
-                        type="text"
-                        placeholder="Full Name"
-                    />
+function Contact() {
+  return (
+    <section className="contact-page">
 
-                    <input
-                        type="email"
-                        placeholder="Email Address"
-                    />
+      <div className="contact-header">
+        <h1>Contact FarmFix</h1>
+        <p>
+          We're here to help. Reach out to us for any questions,
+          support, or partnership opportunities.
+        </p>
+      </div>
 
-                    <input
-                        type="tel"
-                        placeholder="Phone Number"
-                    />
+      <div className="contact-container">
 
-                    <textarea
-                        placeholder="Enter your message..."
-                        rows="5"
-                    ></textarea>
+        <div className="contact-info">
 
-                    <button>Send Message</button>
-
-                </div>
-                <div>
-
-                    <h2>Contact Information</h2>
-
-                    <p>📍 Guntur, Andhra Pradesh</p>
-
-                    <p>📞 +91 XXXXXXXXXX</p>
-
-                    <p>✉️ support@farmfix.com</p>
-
-                    <p>🕒 Monday - Saturday | 9:00 AM - 6:00 PM</p>
-                </div>
+          <div className="info-box">
+            <FaMapMarkerAlt className="icon" />
+            <div>
+              <h3>Address</h3>
+              <p>Guntur, Andhra Pradesh, India</p>
             </div>
+          </div>
 
-        </section>
-    )
+          <div className="info-box">
+            <FaPhoneAlt className="icon" />
+            <div>
+              <h3>Phone</h3>
+              <p>+91 98765 43210</p>
+            </div>
+          </div>
+
+          <div className="info-box">
+            <FaEnvelope className="icon" />
+            <div>
+              <h3>Email</h3>
+              <p>support@farmfix.com</p>
+            </div>
+          </div>
+
+          <div className="info-box">
+            <FaClock className="icon" />
+            <div>
+              <h3>Working Hours</h3>
+              <p>Mon - Sat : 9:00 AM - 6:00 PM</p>
+            </div>
+          </div>
+
+        </div>
+
+        <form className="contact-form">
+
+          <input
+            type="text"
+            placeholder="Your Name"
+          />
+
+          <input
+            type="email"
+            placeholder="Your Email"
+          />
+
+          <textarea
+            rows="6"
+            placeholder="Write your message..."
+          ></textarea>
+
+          <button type="submit">
+            Send Message
+          </button>
+
+        </form>
+
+      </div>
+
+    </section>
+  );
 }
+
 export default Contact;

@@ -1,59 +1,46 @@
-.features-section{
-    padding: 80px 60px;
-    background-color: #f5fff5;
+.features{
+    padding:90px 8%;
+    background:#ffffff;
 }
 
-.title{
-    text-align: center;
-    font-size: 40px;
-    color: #2E7D32;
-    margin-bottom: 20px;
-    font-weight: bold;
+.features h2{
+    text-align:center;
+    font-size:42px;
+    color:#1b5e20;
+    margin-bottom:60px;
 }
 
-.description{
-    width: 75%;
-    margin: auto;
-    text-align: center;
-    font-size: 18px;
-    color: #555;
-    line-height: 1.8;
-    margin-bottom: 50px;
-}
-
-.container{
-    display: grid;
-    grid-template-columns: repeat(2,1fr);
-    gap: 30px;
+.feature-container{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+    gap:30px;
 }
 
 .feature-card{
-    background: white;
-    padding: 30px;
-    border-radius: 15px;
-    text-align: center;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-    transition: all 0.3s ease;
+    background:#fff;
+    padding:35px;
+    border-radius:18px;
+    text-align:center;
+    box-shadow:0 8px 25px rgba(0,0,0,.08);
+    transition:.3s;
 }
 
 .feature-card:hover{
-    transform: translateY(-10px);
-    box-shadow: 0 12px 25px rgba(0,0,0,0.15);
+    transform:translateY(-10px);
 }
 
 .feature-icon{
-    font-size: 50px;
-    margin-bottom: 15px;
+    font-size:50px;
+    color:#43a047;
+    margin-bottom:20px;
 }
 
-.feature-card h2{
-    color: #2E7D32;
-    margin-bottom: 15px;
-    font-size: 24px;
+.feature-card h3{
+    margin-bottom:15px;
+    color:#222;
 }
 
 .feature-card p{
-    color: #555;
-    font-size: 16px;
-    line-height: 1.7;
+    color:#666;
+    line-height:1.7;
 }

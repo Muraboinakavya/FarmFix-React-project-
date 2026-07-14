@@ -1,24 +1,77 @@
-import "./HowItworks.css"
-function HowItworks(){
-    return(
-        <section className="How-It-Works-Section">
-            <h2 className="title">How FarmFix Works</h2>
-            <div className="container">
-                <div className="card">
-                    <h2 className="heading">Report Issue</h2>
-                    <p>Upload the Equipment photo and describe the problem.</p>
-                    </div>
-                    <div className="card">
-                        <h2>Mechanic Accepts</h2>
-                        <p>Nearby meachanic receive the request and contact the farmer.</p>
-                    </div>
-                    <div className="card">
-                        <h2>Repair Completed</h2>
-                        <p>The mechanic visits the farm and repairs the equipment.</p>
-                    </div>
+import "./HowItWorks.css";
+import {
+  FaClipboardList,
+  FaUserCog,
+  FaTools,
+  FaCheckCircle,
+} from "react-icons/fa";
 
-            </div>
-        </section>
-    );
+function HowItWorks() {
+  return (
+    <section className="how">
+
+      <h2>How It Works</h2>
+
+      <div className="how-container">
+
+        <div className="step">
+          <div className="icon">
+            <FaClipboardList />
+          </div>
+
+          <h3>Report Issue</h3>
+
+          <p>
+            Submit your equipment problem with details and location.
+          </p>
+        </div>
+
+        <div className="arrow">➜</div>
+
+        <div className="step">
+          <div className="icon">
+            <FaUserCog />
+          </div>
+
+          <h3>Mechanic Accepts</h3>
+
+          <p>
+            Nearby verified mechanics receive and accept your request.
+          </p>
+        </div>
+
+        <div className="arrow">➜</div>
+
+        <div className="step">
+          <div className="icon">
+            <FaTools />
+          </div>
+
+          <h3>Repair Service</h3>
+
+          <p>
+            The mechanic reaches your farm and repairs the equipment.
+          </p>
+        </div>
+
+        <div className="arrow">➜</div>
+
+        <div className="step">
+          <div className="icon">
+            <FaCheckCircle />
+          </div>
+
+          <h3>Job Completed</h3>
+
+          <p>
+            Confirm the repair and give your valuable feedback.
+          </p>
+        </div>
+
+      </div>
+
+    </section>
+  );
 }
-export default HowItworks;
+
+export default HowItWorks;

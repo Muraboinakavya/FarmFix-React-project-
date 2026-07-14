@@ -1,0 +1,49 @@
+.about{
+    background:#f7faf7;
+}
+
+.about-hero{
+    padding:120px 8% 70px;
+    text-align:center;
+}
+
+.about-hero h1{
+    font-size:48px;
+    color:#1B5E20;
+    margin-bottom:25px;
+}
+
+.about-hero p{
+    max-width:900px;
+    margin:auto;
+    font-size:18px;
+    line-height:1.8;
+    color:#555;
+}
+
+.mission{
+    display:flex;
+    justify-content:center;
+    gap:10px;
+    padding:70px 8%;
+    flex-wrap:wrap;
+}
+
+.mission-card{
+    width:500px;
+    background:#fff;
+    padding:35px;
+    border-radius:15px;
+    box-shadow:0 10px 25px rgba(0,0,0,.08);
+    text-align:center;
+}
+
+.mission-card h2{
+    color:#2E7D32;
+    margin-bottom:20px;
+}
+
+.mission-card p{
+    color:#666;
+    line-height:1.8;
+}
