@@ -49,31 +49,30 @@ function handleSubmit(event) {
     if (!validation()) return;
 
     setLoading(true);
-
-    setTimeout(() => {
-
-        setLoading(false);
-
-        if (
-            email === "admin@farmfix.com" &&
-            password === "Farm@123"
-        ) {
-
-            setLoginSuccess(true);
-
-            setMessage("✅ Welcome to FarmFix!");
-
-        } else {
-
-            setLoginSuccess(false);
-
-            setMessage("❌ Invalid Email or Password");
-
-        }
-
-    }, 2000);
-
 }
+setTimeout(() => {
+
+    setLoading(false);
+
+    const storedUser = JSON.parse(localStorage.getItem("farmfixUser"));
+
+    if (
+        storedUser &&
+        email === storedUser.email &&
+        password === storedUser.password
+    ) {
+
+        setLoginSuccess(true);
+        setMessage("✅ Welcome to FarmFix!");
+
+    } else {
+
+        setLoginSuccess(false);
+        setMessage("❌ Invalid Email or Password");
+
+    }
+
+}, 2000);
 function handleClear() {
 
     setEmail("");
@@ -179,4 +178,5 @@ return (
     </section>
 );
 }
+
 export default Login;

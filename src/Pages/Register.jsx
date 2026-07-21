@@ -5,18 +5,19 @@ function Register(){
     const [email,setUserEmail] = useState("");
     const [mobile,setUserMobile] = useState("");
     const [password,setUserPassword] = useState("");
-    const [equipment, setEquipment] = useState("");
+    // const [equipment, setEquipment] = useState("");
 const [location, setLocation] = useState("");
 const [termsAccepted, setTermsAccepted] = useState(false);
     const [confrompassword,setUserConform] = useState("");
      const [errors,setErrors] = useState({});
      const [successMessage, setSuccessMessage] = useState("");
      const [userData, setUserData] = useState(null);
+     const [role,setRole] = useState("farmer")
     //  const validationError ={};
     function handleSubmit(event){
         event.preventDefault()
         // console.log("Register button clicked")
-        validation(event);
+        validation();
     }
         // event.preventDefault()
     function handleRest() {
@@ -31,9 +32,10 @@ const [termsAccepted, setTermsAccepted] = useState(false);
     setErrors({});
 }
     
-    function validation(event){
+    function validation(){
+        //  event.preventDefault();
         const validationError ={};
-        event.preventDefault();
+       
         if(fullname.trim() === ""){
             validationError.fullname = "Full name is required";
             
@@ -60,9 +62,9 @@ const [termsAccepted, setTermsAccepted] = useState(false);
 
         }
     
-    if(equipment === ""){
-    validationError.equipment = "Please select farm equipment";
-}
+//     if(equipment === ""){
+//     validationError.equipment = "Please select farm equipment";
+// }
 
 if(location.trim() === ""){
     validationError.location = "Location is required";
@@ -73,20 +75,27 @@ if(!termsAccepted){
 }
 setErrors(validationError);
 if(Object.keys(validationError).length === 0){
+const user = {
+    fullname,
+    email,
+    mobile,
+    password,
 
-    setSuccessMessage("🎉 Registration Successful!");
+    location,
+    role
+};
 
-    setUserData({
-        fullname,
-        email,
-        mobile,
-        equipment,
-        location
-    });
+// Save data to localStorage
+localStorage.setItem("farmfixUser", JSON.stringify(user));
 
-    handleRest();
-}
+setSuccessMessage("🎉 Registration Successful!");
+
+setUserData(user);
+
+handleRest();
+
     }
+}
     return(
         <section className="register-page">
             <h2>Create Your FarmFix Account</h2>
@@ -132,26 +141,14 @@ if(Object.keys(validationError).length === 0){
                 {errors.confrompassword && (
     <p className="error">{errors.confrompassword}</p>
 )}
-                <select
-    value={equipment}
-    onChange={(event) => setEquipment(event.target.value)}
+<select
+  value={role}
+  onChange={(e) => setRole(e.target.value)}
 >
-    <option value="">Select Farm Equipment</option>
-    <option value="Tractor">Tractor</option>
-    <option value="Rotavator">Rotavator</option>
-    <option value="Cultivator">Cultivator</option>
-    <option value="Seed Drill">Seed Drill</option>
-    <option value="Sprayer">Sprayer</option>
-    <option value="Harvester">Harvester</option>
-    <option value="Power Tiller">Power Tiller</option>
-    <option value="Thresher">Thresher</option>
-    <option value="Plough">Plough</option>
-    <option value="Water Pump">Water Pump</option>
-    <option value="Other">Other</option>
+  <option value="farmer">Farmer</option>
+  <option value="mechanic">Mechanic</option>
 </select>
-{errors.equipment && (
-    <p className="error">{errors.equipment}</p>
-)}
+       
 <input
     type="text"
     placeholder="Enter your Village / Town"
@@ -159,6 +156,7 @@ if(Object.keys(validationError).length === 0){
     onChange={(event) => setLocation(event.target.value)}
 />
 {errors.location && <p className="error">{errors.location}</p>}
+
 <div className="terms-container">
 
     <input
@@ -185,11 +183,12 @@ if(Object.keys(validationError).length === 0){
         <p><strong>Name:</strong> {userData.fullname}</p>
         <p><strong>Email:</strong> {userData.email}</p>
         <p><strong>Mobile:</strong> {userData.mobile}</p>
-        <p><strong>Equipment:</strong> {userData.equipment}</p>
+        {/* <p><strong>Equipment:</strong> {userData.equipment}</p> */}
         <p><strong>Location:</strong> {userData.location}</p>
     </div>
 )}
         </section>
     );
 }
+
 export default Register;

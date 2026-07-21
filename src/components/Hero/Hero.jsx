@@ -16,8 +16,8 @@ function Hero() {
 
           <h1>
             Helping Farmers <br />
-            <span>Find Trusted Mechanics</
-            span>
+            <span>Find Trusted Mechanics</span>
+
           </h1>
 
           <p>
@@ -60,5 +60,6 @@ function Hero() {
     </section>
   );
 }
+
 
 export default Hero;
