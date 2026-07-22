@@ -176,3 +176,27 @@
 }
 
 }
+.password-box{
+    position:relative;
+    width:100%;
+    margin-bottom:15px;
+}
+
+.password-box input{
+    width:100%;
+    padding-right:45px;
+}
+
+.eye-icon{
+    position:absolute;
+    right:15px;
+    top:50%;
+    transform:translateY(-50%);
+    cursor:pointer;
+    font-size:20px;
+    color:#777;
+}
+
+.eye-icon:hover{
+    color:#4CAF50;
+}

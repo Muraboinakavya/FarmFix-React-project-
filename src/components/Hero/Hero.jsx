@@ -26,18 +26,14 @@ function Hero() {
             details, and receive fast assistance from nearby professionals to
             keep your work moving.
           </p>
-
           <div className="hero-buttons">
-            <Link to="/report-issue">
-            <button className="report-btn">Report an Issue</button>
-            </Link>
-
-           <Link to="/register">
-            <button className="mechanic-btn">
-              Become a Mechanic
-            </button>
-            </Link>
+            <Link to ="/register">
+          <button className="report-btn">Get Started</button>
+          </Link>
           </div>
+
+
+         
 
           <div className="hero-stats">
             <div className="stat-card">

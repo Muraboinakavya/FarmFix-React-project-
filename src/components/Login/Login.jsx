@@ -1,6 +1,10 @@
 import "./Login.css";
 import { useState } from "react";
 import {Link} from "react-router-dom";
+import api from "../../API/api.js";
+import { useNavigate } from "react-router-dom";
+
+
 function Login() {
 const [email, setEmail] = useState("");
 const [password, setPassword] = useState("");
@@ -12,6 +16,7 @@ const [loginSuccess, setLoginSuccess] = useState(false);
 const [showPassword, setShowPassword] = useState(false);
 
 const [loading, setLoading] = useState(false);
+const navigation =useNavigate();
 function validation(){
 
 
@@ -42,37 +47,50 @@ function validation(){
     return Object.keys(validationErrors).length === 0;
 }
 
-function handleSubmit(event) {
+ async function handleSubmit(event) {
 
     event.preventDefault();
 
     if (!validation()) return;
 
     setLoading(true);
-}
-setTimeout(() => {
+    try {
+
+    const response = await api.post("/users/login", {
+        email,
+        password,
+    });
+
+    setLoginSuccess(true);
+    setMessage(response.data.message);
+
+    if (response.data.user.role === "farmer") {
+        navigate("/farmer-dashboard");
+    } else {
+        navigate("/mechanic-dashboard");
+    }
+    if(response.data.user.role === "farmer"){
+        navigation("/dashboard");
+    }else{
+        navigation("/dashboard");
+    }
+} catch (error) {
+
+    setLoginSuccess(false);
+
+    if (error.response) {
+        setMessage(error.response.data.message);
+    } else {
+        setMessage("Server Error");
+    }
+
+} finally {
 
     setLoading(false);
 
-    const storedUser = JSON.parse(localStorage.getItem("farmfixUser"));
+}
+}
 
-    if (
-        storedUser &&
-        email === storedUser.email &&
-        password === storedUser.password
-    ) {
-
-        setLoginSuccess(true);
-        setMessage("✅ Welcome to FarmFix!");
-
-    } else {
-
-        setLoginSuccess(false);
-        setMessage("❌ Invalid Email or Password");
-
-    }
-
-}, 2000);
 function handleClear() {
 
     setEmail("");

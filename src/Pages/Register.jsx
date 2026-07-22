@@ -1,194 +1,319 @@
 import "./Register.css";
 import { useState } from "react";
-function Register(){
-    const [fullname,setFullName] = useState("");
-    const [email,setUserEmail] = useState("");
-    const [mobile,setUserMobile] = useState("");
-    const [password,setUserPassword] = useState("");
-    // const [equipment, setEquipment] = useState("");
-const [location, setLocation] = useState("");
-const [termsAccepted, setTermsAccepted] = useState(false);
-    const [confrompassword,setUserConform] = useState("");
-     const [errors,setErrors] = useState({});
-     const [successMessage, setSuccessMessage] = useState("");
-     const [userData, setUserData] = useState(null);
-     const [role,setRole] = useState("farmer")
-    //  const validationError ={};
-    function handleSubmit(event){
-        event.preventDefault()
-        // console.log("Register button clicked")
-        validation();
-    }
-        // event.preventDefault()
-    function handleRest() {
+import api from "../API/api";
+import {FaEye,FaEyeSlash} from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
+
+function Register() {
+  const navigate = useNavigate();
+  const [fullname, setFullName] = useState("");
+  const [email, setUserEmail] = useState("");
+  const [mobile, setUserMobile] = useState("");
+  const [password, setUserPassword] = useState("");
+  const [confrompassword, setUserConform] = useState("");
+  const [showPassword,setShowPassword] = useState(false);
+  const [showConfirmPassword,setShowConfirmPassword] = useState(false);
+  const [location, setLocation] = useState("");
+  const [role, setRole] = useState("farmer");
+
+  // Mechanic Fields
+  const [specialization, setSpecialization] = useState("");
+  const [experience, setExperience] = useState("");
+  const [serviceArea, setServiceArea] = useState("");
+
+  const [termsAccepted, setTermsAccepted] = useState(false);
+
+  const [errors, setErrors] = useState({});
+  const [successMessage, setSuccessMessage] = useState("");
+  const [loading, setLoading] = useState(false);
+
+
+  
+
+  function handleReset() {
     setFullName("");
     setUserEmail("");
     setUserMobile("");
     setUserPassword("");
     setUserConform("");
-    setEquipment("");
     setLocation("");
+    setRole("farmer");
+    setSpecialization("");
+    setExperience("");
+    setServiceArea("");
     setTermsAccepted(false);
     setErrors({});
-}
+  }
+
+  async function handleSubmit(event) {
+    event.preventDefault();
+
+    const validationError = {};
+
+    if (fullname.trim() === "") {
+      validationError.fullname = "Full Name is required";
+    }
+
+    const emailPattern =
+      /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[A-Za-z]{2,}$/;
+
+    if (!emailPattern.test(email)) {
+      validationError.email = "Enter a valid email";
+    }
+
+    if (mobile.length !== 10) {
+      validationError.mobile = "Phone number must contain 10 digits";
+    }
+
+    const passPattern =
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&]).{8,}$/;
+
+    if (!passPattern.test(password)) {
+      validationError.password =
+        "Password must contain uppercase, lowercase, number and special character";
+    }
+
+    if (password !== confrompassword) {
+      validationError.confrompassword =
+        "Password and Confirm Password must match";
+    }
+
+    if (location.trim() === "") {
+      validationError.location = "Village is required";
+    }
+
+    if (!termsAccepted) {
+      validationError.terms = "Accept Terms & Conditions";
+    }
+
+    if (role === "mechanic") {
+      if (specialization.trim() === "") {
+        validationError.specialization = "Enter specialization";
+      }
+
+      if (experience.trim() === "") {
+        validationError.experience = "Enter experience";
+      }
+
+      if (serviceArea.trim() === "") {
+        validationError.serviceArea = "Enter service area";
+      }
+    }
+
+    setErrors(validationError);
+
+    if (Object.keys(validationError).length > 0) return;
+
+    const userData = {
+      name: fullname,
+      email,
+      phone: mobile,
+      password,
+      village: location,
+      role,
+    };
+
+    try {
+      setLoading(true);
+
+      const response = await api.post("/users/register", userData);
+      console.log(response);
+
+      setSuccessMessage(response.data.message);
+
+      handleReset();
+       setTimeout(()=>{
+        
+        navigate("/login");
+       },1500);
     
-    function validation(){
-        //  event.preventDefault();
-        const validationError ={};
-       
-        if(fullname.trim() === ""){
-            validationError.fullname = "Full name is required";
-            
-            
-
-        }
-        const emailpattern = (/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/)
-        if(!emailpattern.test(email)){
-            validationError.email = "Please Enter the valid Email"
-            
-        }
-        if(mobile.trim() === "" || mobile.length !== 10){
-            validationError.mobile  = "Mobile number is must be 10 digits";
-            
-        }
-        const passpattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
-        if(!passpattern.test(password)){
-            validationError.password ="Enter the valid password"
-            
-        }
-        if(confrompassword !== password){
-            validationError.confrompassword ="The password and conform password should same";
-            
-
-        }
-    
-//     if(equipment === ""){
-//     validationError.equipment = "Please select farm equipment";
-// }
-
-if(location.trim() === ""){
-    validationError.location = "Location is required";
-}
-
-if(!termsAccepted){
-    validationError.terms = "Please accept the Terms & Conditions";
-}
-setErrors(validationError);
-if(Object.keys(validationError).length === 0){
-const user = {
-    fullname,
-    email,
-    mobile,
-    password,
-
-    location,
-    role
-};
-
-// Save data to localStorage
-localStorage.setItem("farmfixUser", JSON.stringify(user));
-
-setSuccessMessage("🎉 Registration Successful!");
-
-setUserData(user);
-
-handleRest();
-
+      
+    } catch (error) {
+      console.log(error)
+      console.log(error.response);
+      if (error.response) {
+        alert(error.response.data.message);
+      } else {
+        alert("Server Error");
+      }
+    } finally {
+      setLoading(false);
     }
 }
-    return(
-        <section className="register-page">
-            <h2>Create Your FarmFix Account</h2>
-            <p>Join FarmFix to connect with trusted mechanics, report farm equipment issues, track repair requests, and access reliable maintenance services. Register today to experience faster, smarter, and more efficient equipment support.</p>
-             {successMessage && (
-    <p className="success">{successMessage}</p>
-)}          
-            <form  className="register-form" onSubmit={handleSubmit}>
-                <input id="name"
-                type="text"
-                placeholder="Enter the Fullname"
-                value={fullname}
-                onChange={(event)=>setFullName(event.target.value)}
-                />
-                {errors.fullname && <p className="error">{errors.fullname}</p>}
-                <input id="email"
-                type="email"
-                placeholder="Enter the Email"
-                value={email}
-                onChange={(event)=>setUserEmail(event.target.value)}
-                />
-                {errors.email && <p className="error">{errors.email}</p>}
-                <input id="mobile"
-                type="text"
-                placeholder="Enter the phone number"
-                value={mobile}
-                onChange={(event)=>setUserMobile(event.target.value)}
-                />
-                {errors.mobile && <p className="error">{errors.mobile}</p>}
-                <input id="password"
-                type="password"
-                placeholder="Enter the password"
-                value={password}
-                onChange={(event)=>setUserPassword(event.target.value)}
-                />
-                {errors.password && <p className="error">{errors.password}</p>}
-                <input id="conform-password"
-                type="password"
-                placeholder="Enter the  conform password"
-                value={confrompassword}
-                onChange={(event)=>setUserConform(event.target.value)}
-                />
-                {errors.confrompassword && (
-    <p className="error">{errors.confrompassword}</p>
-)}
-<select
-  value={role}
-  onChange={(e) => setRole(e.target.value)}
->
-  <option value="farmer">Farmer</option>
-  <option value="mechanic">Mechanic</option>
-</select>
-       
-<input
-    type="text"
-    placeholder="Enter your Village / Town"
-    value={location}
-    onChange={(event) => setLocation(event.target.value)}
-/>
-{errors.location && <p className="error">{errors.location}</p>}
+    return (
+    <section className="register-page">
+      <h2>Create Your FarmFix Account</h2>
 
-<div className="terms-container">
+      <p>
+        Join FarmFix to connect farmers with trusted mechanics for faster
+        equipment repair and maintenance.
+      </p>
 
+      {successMessage && (
+        <p className="success">{successMessage}</p>
+      )}
+
+      <form className="register-form" onSubmit={handleSubmit} autoComplete="off">
+
+        <input
+          type="text"
+           autoComplete="off"
+          placeholder="Full Name"
+          value={fullname}
+          onChange={(e) => setFullName(e.target.value)}
+        />
+        {errors.fullname && <p className="error">{errors.fullname}</p>}
+
+        <input
+          type="email"
+           autoComplete="off"
+          placeholder="Email"
+          value={email}
+          onChange={(e) => setUserEmail(e.target.value)}
+        />
+        {errors.email && <p className="error">{errors.email}</p>}
+
+        <input
+          type="text"
+           autoComplete="off"
+          placeholder="Phone Number"
+          value={mobile}
+          onChange={(e) => setUserMobile(e.target.value)}
+        />
+        {errors.mobile && <p className="error">{errors.mobile}</p>}
+
+       <div className="password-box">
     <input
-        type="checkbox"
-        id="terms"
-        checked={termsAccepted}
-        onChange={(event)=>setTermsAccepted(event.target.checked)}
+        type={showPassword ? "text" : "password"}
+         autoComplete="off"
+        placeholder="Password"
+        value={password}
+        onChange={(e) => setUserPassword(e.target.value)}
     />
 
-    <label htmlFor="terms">
-        I agree to the Terms & Conditions and Privacy Policy of FarmFix. I confirm that the information provided is accurate and authorize FarmFix to connect me with verified service providers.
-    </label>
-
+    <span
+        className="eye-icon"
+        onClick={() => setShowPassword(!showPassword)}
+    >
+        {showPassword ? <FaEyeSlash /> : <FaEye />}
+    </span>
 </div>
-{errors.terms && <p className="error">{errors.terms}</p>}
-                <button type="submit">Register</button> <button type="button" onClick={handleRest}>Reset</button>
 
-                
-            </form>
-            {userData && (
-    <div className="user-card">
-        <h3>Registered User Details</h3>
-
-        <p><strong>Name:</strong> {userData.fullname}</p>
-        <p><strong>Email:</strong> {userData.email}</p>
-        <p><strong>Mobile:</strong> {userData.mobile}</p>
-        {/* <p><strong>Equipment:</strong> {userData.equipment}</p> */}
-        <p><strong>Location:</strong> {userData.location}</p>
-    </div>
+{errors.password && (
+    <p className="error">{errors.password}</p>
 )}
-        </section>
-    );
+      
+        <select
+          value={role}
+          onChange={(e) => setRole(e.target.value)}
+        >
+          <option value="farmer">Farmer</option>
+          <option value="mechanic">Mechanic</option>
+        </select>
+
+        <div className="password-box">
+    <input
+        type={showConfirmPassword ? "text" : "password"}
+         autoComplete="off"
+        placeholder="Confirm Password"
+        value={confrompassword}
+        onChange={(e) => setUserConform(e.target.value)}
+    />
+
+    <span
+        className="eye-icon"
+        onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+    >
+        {showConfirmPassword ? <FaEyeSlash /> : <FaEye />}
+    </span>
+</div>
+
+{errors.confrompassword && (
+    <p className="error">{errors.confrompassword}</p>
+)}        <input
+          type="text"
+           autoComplete="off"
+          placeholder="Village / Town"
+          value={location}
+          onChange={(e) => setLocation(e.target.value)}
+          />
+        
+        {errors.location && <p className="error">{errors.location}</p>}
+
+        {/* Mechanic Fields */}
+
+        {role === "mechanic" && (
+          <>
+            <input
+              type="text"
+               autoComplete="off"
+              placeholder="Specialization"
+              value={specialization}
+              onChange={(e) => setSpecialization(e.target.value)}
+            />
+            {errors.specialization && (
+              <p className="error">{errors.specialization}</p>
+            )}
+
+            <input
+              type="text"
+               autoComplete="off"
+              placeholder="Experience"
+              value={experience}
+              onChange={(e) => setExperience(e.target.value)}
+            />
+            {errors.experience && (
+              <p className="error">{errors.experience}</p>
+            )}
+
+            <input
+              type="text"
+               autoComplete="off"
+              placeholder="Service Area"
+              value={serviceArea}
+              onChange={(e) => setServiceArea(e.target.value)}
+            />
+            {errors.serviceArea && (
+              <p className="error">{errors.serviceArea}</p>
+            )}
+          </>
+        )}
+
+        <div className="terms-container">
+          <input
+            type="checkbox"
+             autoComplete="off"
+            id="terms"
+            checked={termsAccepted}
+            onChange={(e) => setTermsAccepted(e.target.checked)}
+          />
+
+          <label htmlFor="terms">
+            I agree to the Terms & Conditions and Privacy Policy.
+          </label>
+        </div>
+
+        {errors.terms && (
+          <p className="error">{errors.terms}</p>
+        )}
+
+        <div className="button-group">
+          <button type="submit" disabled={loading}>
+            {loading ? "Registering..." : "Register"}
+          </button>
+
+          <button
+            type="button"
+            onClick={handleReset}
+          >
+            Reset
+          </button>
+        </div>
+
+      </form>
+    </section>
+  );
 }
+
 
 export default Register;
